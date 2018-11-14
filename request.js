@@ -3,13 +3,9 @@ var requestPromise = require('request-promise');
 
 // Make a request for a user with a given ID
 axios.get('http://www.example.com/')
-  .then(function (response) {
-    // handle success
-    //    console.log(response.data);
+  .then(function (response) { console.log(response.data);
   })
-  .catch(function (error) {
-    // handle error
-    //
+  .catch(function (error) {  // handle error
     console.log('error');
   })
   .then(function () {
@@ -42,11 +38,25 @@ var options = {
 };
 
 requestPromise(options)
-    .then(function (parsedBody) {
-      console.log(' POST succeeded...')
-      console.log(parsedBody)
+    .then(function (response) {
+      console.log('\nPOST succeeded...')
+      console.log('library: requestPromise');
+      console.log('parsedBody.data', response.data, '\n')
     })
     .catch(function (err) {
         console.log('POST failed...')
     });
 
+axios.post('https://httpbin.org/post', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log('\nPOST 2 succeeded...')
+    console.log('library: axios');
+    console.log('response.data.data', response.data.data, '\n');
+  })
+  .catch(function (error) {
+    console.log('POST 2 failed...')
+    console.log(error);
+  });
