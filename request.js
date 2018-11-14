@@ -1,4 +1,5 @@
 const axios = require('axios');
+var rp = require('request-promise');
 
 // Make a request for a user with a given ID
 axios.get('http://www.example.com/')
@@ -15,4 +16,13 @@ axios.get('http://www.example.com/')
     // always executed
   });
 
+rp('http://www.example.com')
+    .then(function (htmlString) {
+      // Process html...
+      //      console.log(htmlString)
+    })
+  .catch(function (err) {
+    console.log('err')
+        // Crawling failed...
+  });
 
