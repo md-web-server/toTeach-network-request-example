@@ -1,0 +1,24 @@
+{
+  "name": "toteach-network-request-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "request.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelDimmitt/toTeach-network-request-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelDimmitt/toTeach-network-request-example/issues"
+  },
+  "homepage": "https://github.com/MichaelDimmitt/toTeach-network-request-example#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
+}
