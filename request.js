@@ -16,13 +16,16 @@ axios.get('http://www.example.com/')
     // always executed
   });
 
-rp('http://www.example.com')
+const result = rp('http://www.example.com')
     .then(function (htmlString) {
       // Process html...
-      //      console.log(htmlString)
+      return htmlString
     })
-  .catch(function (err) {
-    console.log('err')
-        // Crawling failed...
-  });
+   .catch(function (err) {
+      return 'err'
+      // Crawling failed...
+   });
+result.then(x => {
+  console.log(x)
+})
 
