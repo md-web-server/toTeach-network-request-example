@@ -1,39 +1,38 @@
-const print = (msg, lib, response) => {
-//   console.log({msg, lib, response})
-  console.log();
-  console.log(msg,' succeeded... library: ', lib)
-  console.log('lib:', lib, 'success:', JSON.stringify(response), '\n');
-  return response
-}
-
 // Axios Library
 const axios = require('axios');
-axios.get('http://www.example.com/')
-  .then(function (response) { print('Get', 'axios', response.data) })
-  .catch(function (error)   { console.log('Get lib: axios error:', {error}) })
+axios.get('https://httpbin.org')
+  .then(response => { console.log('Get', 'axios', JSON.stringify(response.data)) })
+  .catch(error => { console.log('Get lib: axios error:', {error}) })
 
 axios.post('https://httpbin.org/post', { firstName: 'Fred', lastName: 'Flintstone' })
-  .then(function (response) { print('Post', 'axios', response.data.data) })
-  .catch(function (error)   { console.log('POST lib: axios failed...', error); });
+  .then(response => { console.log('Post', 'axios', JSON.stringify(response.data.data) ) })
+  .catch(error => { console.log('Post', 'axios', {error}); });
 
 // Request Promise Library
 const requestPromise = require('request-promise');
+
+const result = requestPromise('https://httpbin.org')
+  .then(response => { console.log('Get', 'request', JSON.stringify(response) ) })
+  .catch(err => { console.log('Get', 'request', {error}) });
+
 const options = {
   method: 'POST', uri: 'https://httpbin.org/post',
   body: { 'key': 'value' },
   json: true // Automatically stringifies the body to JSON
 };
 
-const result = requestPromise('http://www.example.com')
-  .then(function (response) { print('Get', 'request', response) })
-  .catch(function (err)     { return 'err' });
-
 requestPromise(options)
-  .then(function (response) { print('Get', 'request', response.data) })
-  .catch(function (err) { console.log('POST lib: request failed...') });
+  .then(response => { console.log('Post', 'request', JSON.stringify(response.data)) })
+  .catch(error => { console.log('Post', 'request', {error}) });
 
 // // Fetch Library
 const fetch = require('node-fetch');
+
+fetch('https://httpbin.org')
+  .then(response => { return response.text(); })
+  .then(response => { console.log('Get', 'fetch', JSON.stringify(response)) })
+  .catch(error => { console.log('Get', 'fetch', {error}) })
+
 const postOptions = (data = {}) => {
   const options = {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -51,15 +50,10 @@ const postOptions = (data = {}) => {
   return options;
 }
 
-fetch('http://www.example.com/')
-  .then(function(response) { return response.text(); })
-  .then(function(response) { print('Get', 'fetch', response) })
-  .catch(function (error)   { console.log({error}) })
-
 fetch('https://httpbin.org/post', postOptions({answer: 42}) )
   .then(response => response.json() )
-  .then(response => { print('Post', 'fetch', response.data) })
-
+  .then(response => { console.log('Post', 'fetch', JSON.stringify(response.data)) })
+  .catch(error => { console.log('Post', 'fetch', {error}) })
 
 // output still needs resolving.
 // // http
